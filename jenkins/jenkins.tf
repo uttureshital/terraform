@@ -5,7 +5,7 @@ provider "aws" {
 #create vpc and subnet
 
 resource "aws_vpc" "my_vpc" {
-  cidr_block = "192.128.0.0/16"
+  cidr_block = "192.168.0.0/16"
  
   tags = {
     Name = "jenkins-vpc"
@@ -14,7 +14,7 @@ resource "aws_vpc" "my_vpc" {
 
 resource "aws_subnet" "my_subnet" {
   vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = "192.168.1.0/24"
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-southeast-2a"
   map_public_ip_on_launch = true
   tags = {
