@@ -1,4 +1,9 @@
+provider "aws" {
+    region = "ap-southeast-2"
+}
+
 #create vpc and subnet
+
 resource "aws_vpc" "my_vpc" {
   cidr_block = "192.128.0.0/16"
  
