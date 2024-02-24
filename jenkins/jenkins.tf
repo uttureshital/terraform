@@ -56,15 +56,14 @@ resource "aws_instance" "instance" {
         
     }
     subnet_id = aws_subnet.my_subnet.id
-    user_data =  <<-EOF 
-                 #!/bin/bash
+    user_data =  #!/bin/bash
                  sudo apt update,
                  sudo apt install fontconfig openjdk-17-jre,
                  wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -,
-                 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list',
+                 sudo sh -c "echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list",
                  sudo apt-get update -y,
                  sudo apt-get install -y jenkins,
                  sudo systemctl start jenkins,
                  sudo systemctl enable jenkins
-                 EOF
+                 
 }                 
