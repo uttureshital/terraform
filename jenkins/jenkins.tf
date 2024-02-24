@@ -13,14 +13,14 @@ resource "aws_subnet" "my_subnet" {
   availability_zone = "ap-southeast-2a"
   map_public_ip_on_launch = true
   tags = {
-    Name = public
+    Name = "public"
     }
 }
 
 #creating security group
 
 resource "aws_security_group" "my_sg" {
-    name = jkn-sg
+    name = "jkn-sg"
     description = "allow jenkins and ssh"
     vpc_id = aws_vpc.my_vpc.id
     ingress {
@@ -48,8 +48,8 @@ resource "aws_security_group" "my_sg" {
 
 resource "aws_instance" "instance" {
     ami = "ami-04f5097681773b989"
-    instance_type = t2.micro
-    key_name = shital
+    instance_type = "t2.micro"
+    key_name = "shital"
     vpc_security_group_ids = [aws_security_group.my_sg.id]
     tags = {
         Name = "jenkins-instance"
