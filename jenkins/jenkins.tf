@@ -3,9 +3,8 @@ resource "aws_vpc" "my_vpc" {
   cidr_block = "192.168.0.0/10"
  
   tags = {
-    Name = "${var.my_vpc}-vpc"
-    evn = "${var.env}-evn"
-  }
+    Name = jenkins-vpc
+    }
 }
 
 resource "aws_subnet" "my_subnet" {
@@ -14,15 +13,14 @@ resource "aws_subnet" "my_subnet" {
   availability_zone = "ap-southeast-2a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.subnet}-subnet"
-    evn = "${var.env}-evn"
-  }
+    Name = public
+    }
 }
 
 #creating security group
 
 resource "aws_security_group" "my_sg" {
-    name = "${var.sg}-sg"
+    name = jkn-sg
     description = "allow jenkins and ssh"
     vpc_id = aws_vpc.my_vpc.id
     ingress {
@@ -49,26 +47,23 @@ resource "aws_security_group" "my_sg" {
 #creating instance
 
 resource "aws_instance" "instance" {
-    ami = var.ami
-    instance_type = var.instance_type
-    key_name = var.key_pair
+    ami = "ami-04f5097681773b989"
+    instance_type = t2.micro
+    key_name = shital
     vpc_security_group_ids = [aws_security_group.my_sg.id]
     tags = {
-        Name = "${var.project}-private-instance"
-        env =  "${var.env}-evn"
+        Name = "jenkins-instance"
+        
     }
     subnet_id = aws_subnet.my_subnet.id
     user_data =  <<-EOF 
                  #!/bin/bash
                  sudo apt update
                  sudo apt install fontconfig openjdk-17-jre
-                 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-                 https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-                 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-                 https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-                 /etc/apt/sources.list.d/jenkins.list > /dev/null
-                 sudo apt-get update
-                 sudo apt-get install jenkins
+                 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+                 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+                 sudo apt-get update -y
+                 sudo apt-get install -y jenkins
                  sudo systemctl start jenkins
                  sudo systemctl enable jenkins
                  EOF
