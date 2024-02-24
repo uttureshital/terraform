@@ -99,6 +99,7 @@ resource "aws_instance" "instance" {
                  /etc/apt/sources.list.d/jenkins.list > /dev/null
                  sudo apt-get update -y
                  sudo apt-get install jenkins -y
+                 EOF
                 
         
 }
