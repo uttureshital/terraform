@@ -65,9 +65,9 @@ resource "aws_instance" "instance" {
     user_data = <<EOF
                  #!/bin/bash
 
-                 sudo apt update
+                 sudo apt update 
 
-                 sudo apt install fontconfig openjdk-17-jre -y
+                 sudo apt install -y fontconfig openjdk-17-jre 
 
                  wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 
