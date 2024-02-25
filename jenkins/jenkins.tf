@@ -54,7 +54,7 @@ resource "aws_security_group" "my_sg" {
 resource "aws_instance" "instance" {
     ami = "ami-0e5f882be1900e43b"
     instance_type = "t2.micro"
-    key_name = "shital"
+    key_name = "jenkins"
     vpc_security_group_ids = [aws_security_group.my_sg.id]
     tags = {
         Name = "jenkins-instance"
