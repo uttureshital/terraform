@@ -1,9 +1,9 @@
 provider "aws" {
-    region = "eu-west-2"
+    region = "eu-west-3"
 }
 
 #create vpc and subnet
-
+/*
 resource "aws_vpc" "my_vpc" {
   cidr_block = "192.168.0.0/16"
  
@@ -21,7 +21,7 @@ resource "aws_subnet" "my_subnet" {
     Name = "public"
     }
 }
-
+*/
 #creating security group
 
 resource "aws_security_group" "my_sg" {
@@ -36,9 +36,9 @@ resource "aws_security_group" "my_sg" {
     }
     ingress {
         cidr_blocks = ["0.0.0.0/0"]
-        protocol = "-1"
-        from_port = 0
-        to_port = 0
+        protocol = "tcp"
+        from_port = 8080
+        to_port = 8080
     }
     egress {
         cidr_blocks = ["0.0.0.0/0"]
