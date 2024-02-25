@@ -55,12 +55,12 @@ resource "aws_instance" "instance" {
     ami = "ami-0e5f882be1900e43b"
     instance_type = "t2.micro"
     key_name = "jenkins"
-    vpc_security_group_ids = [aws_security_group.my_sg.id]
+    vpc_security_group_ids = [sg-072e05d4d0be400fb]
     tags = {
         Name = "jenkins-instance"
         
     }
-    subnet_id = aws_subnet.my_subnet.id
+    #subnet_id = aws_subnet.my_subnet.id
     /*
     user_data = <<EOF
                  #!/bin/bash
