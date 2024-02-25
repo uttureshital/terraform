@@ -23,7 +23,7 @@ resource "aws_subnet" "my_subnet" {
 }
 */
 #creating security group
-
+/*
 resource "aws_security_group" "my_sg" {
     name = "jkn-sg"
     description = "allow jenkins and ssh"
@@ -48,7 +48,7 @@ resource "aws_security_group" "my_sg" {
     }
     
 }
-
+*/
 #creating instance
 
 resource "aws_instance" "instance" {
